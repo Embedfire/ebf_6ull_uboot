@@ -756,7 +756,7 @@ static iomux_v3_cfg_t const lcd_pads[] = {
 	MX6_PAD_LCD_DATA23__LCDIF_DATA23 | MUX_PAD_CTRL(LCD_PAD_CTRL),
 
 	/* LCD_RST */
-	MX6_PAD_SNVS_TAMPER9__GPIO5_IO09 | MUX_PAD_CTRL(NO_PAD_CTRL),
+	//MX6_PAD_SNVS_TAMPER9__GPIO5_IO09 | MUX_PAD_CTRL(NO_PAD_CTRL),// pengjie 0717
 
 	/* Use GPIO for Brightness adjustment, duty cycle = period. */
 	MX6_PAD_GPIO1_IO08__GPIO1_IO08 | MUX_PAD_CTRL(NO_PAD_CTRL),
@@ -769,34 +769,82 @@ void do_enable_parallel_lcd(struct display_info_t const *dev)
 	imx_iomux_v3_setup_multiple_pads(lcd_pads, ARRAY_SIZE(lcd_pads));
 
 	/* Reset the LCD */
-	gpio_direction_output(IMX_GPIO_NR(5, 9) , 0);
+	//gpio_direction_output(IMX_GPIO_NR(5, 9) , 0);// pengjie 0717
 	udelay(500);
-	gpio_direction_output(IMX_GPIO_NR(5, 9) , 1);
+	//gpio_direction_output(IMX_GPIO_NR(5, 9) , 1);// pengjie 0717
 
 	/* Set Brightness to high */
 	gpio_direction_output(IMX_GPIO_NR(1, 8) , 1);
 }
 
 struct display_info_t const displays[] = {{
-	.bus = MX6UL_LCDIF1_BASE_ADDR,
-	.addr = 0,
-	.pixfmt = 24,
-	.detect = NULL,
-	.enable	= do_enable_parallel_lcd,
-	.mode	= {
-		.name			= "TFT43AB",
-		.xres           = 480,
-		.yres           = 272,
-		.pixclock       = 108695,
-		.left_margin    = 8,
-		.right_margin   = 4,
-		.upper_margin   = 2,
-		.lower_margin   = 4,
-		.hsync_len      = 41,
-		.vsync_len      = 10,
-		.sync           = 0,
-		.vmode          = FB_VMODE_NONINTERLACED
-} } };
+        .bus = MX6UL_LCDIF1_BASE_ADDR,
+        .addr = 0,
+        .pixfmt = 24,
+        .detect = NULL,
+        .enable = do_enable_parallel_lcd,
+        .mode   = {
+                .name                   = "TFT43AB",
+                .xres           = 480,
+                .yres           = 272,
+                .pixclock       = 108695,
+                .left_margin    = 8,
+                .right_margin   = 4,
+                .upper_margin   = 2,
+                .lower_margin   = 4,
+                .hsync_len      = 41,
+                .vsync_len      = 10,
+                .sync           = 0,
+                .vmode          = FB_VMODE_NONINTERLACED
+                   }
+        },
+
+        {
+        .bus = MX6UL_LCDIF1_BASE_ADDR,
+        .addr = 0,
+        .pixfmt = 24,
+        .detect = NULL,
+        .enable = do_enable_parallel_lcd,
+        .mode   = {
+                .name           = "TFT50AB",
+                .xres           = 800,
+                .yres           = 480,
+                .pixclock       = 384000,
+                .left_margin    = 46,
+                .right_margin   = 22,
+                .upper_margin   = 23,
+                .lower_margin   = 22,
+                .hsync_len      = 1,
+                .vsync_len      = 1,
+                .sync           = 0,
+                .vmode          = FB_VMODE_NONINTERLACED
+                   }
+        },
+
+        {
+        .bus = MX6UL_LCDIF1_BASE_ADDR,
+        .addr = 0,
+        .pixfmt = 24,
+        .detect = NULL,
+        .enable = do_enable_parallel_lcd,
+        .mode   = {
+                .name           = "TFT70AB",
+                .xres           = 800,
+                .yres           = 480,
+                .pixclock       = 384000,
+                .left_margin    = 46,
+                .right_margin   = 22,
+                .upper_margin   = 23,
+                .lower_margin   = 22,
+                .hsync_len      = 1,
+                .vsync_len      = 1,
+                .sync           = 0,
+                .vmode          = FB_VMODE_NONINTERLACED
+                   }
+        }
+
+};
+
 size_t display_count = ARRAY_SIZE(displays);
 #endif
 
