@@ -770,7 +770,7 @@ void do_enable_parallel_lcd(struct display_info_t const *dev)
 
 	/* Reset the LCD */
 	//gpio_direction_output(IMX_GPIO_NR(5, 9) , 0);// pengjie 0717
-	udelay(500);
+	//udelay(500);
 	//gpio_direction_output(IMX_GPIO_NR(5, 9) , 1);// pengjie 0717
 
 	/* Set Brightness to high */
@@ -809,7 +809,7 @@ struct display_info_t const displays[] = {{
                 .name           = "TFT50AB",
                 .xres           = 800,
                 .yres           = 480,
-                .pixclock       = 384000,
+                .pixclock       = 108695,
                 .left_margin    = 46,
                 .right_margin   = 22,
                 .upper_margin   = 23,
@@ -831,7 +831,7 @@ struct display_info_t const displays[] = {{
                 .name           = "TFT70AB",
                 .xres           = 800,
                 .yres           = 480,
-                .pixclock       = 384000,
+                .pixclock       = 108695,
                 .left_margin    = 46,
                 .right_margin   = 22,
                 .upper_margin   = 23,
