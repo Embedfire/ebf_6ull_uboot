@@ -764,9 +764,9 @@ static iomux_v3_cfg_t const lcd_pads[] = {
 
 void do_enable_parallel_lcd(struct display_info_t const *dev)
 {
-	enable_lcdif_clock(dev->bus);
+	//enable_lcdif_clock(dev->bus);
 
-	imx_iomux_v3_setup_multiple_pads(lcd_pads, ARRAY_SIZE(lcd_pads));
+	//imx_iomux_v3_setup_multiple_pads(lcd_pads, ARRAY_SIZE(lcd_pads));
 
 	/* Reset the LCD */
 	//gpio_direction_output(IMX_GPIO_NR(5, 9) , 0);// pengjie 0717
@@ -774,7 +774,7 @@ void do_enable_parallel_lcd(struct display_info_t const *dev)
 	//gpio_direction_output(IMX_GPIO_NR(5, 9) , 1);// pengjie 0717
 
 	/* Set Brightness to high */
-	gpio_direction_output(IMX_GPIO_NR(1, 8) , 1);
+	gpio_direction_output(IMX_GPIO_NR(1, 8) , 0);
 }
 
 struct display_info_t const displays[] = {{

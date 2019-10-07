@@ -77,7 +77,7 @@ defined(CONFIG_MX6DL)) && !defined(CONFIG_MX6SOLO)
 #define CONFIG_SYS_LOAD_ADDR	CONFIG_LOADADDR
 
 #ifndef CONFIG_BOOTDELAY
-#define CONFIG_BOOTDELAY	3
+#define CONFIG_BOOTDELAY	0
 #endif
 
 /* allow to overwrite serial and ethaddr */

@@ -397,7 +397,7 @@ static const int video_font_draw_table32[16][4] = {
 __weak int board_cfb_skip(void)
 {
 	/* As default, don't skip cfb init */
-	return 0;
+	return 1;
 }
 
 static void video_drawchars(int xx, int yy, unsigned char *s, int count)
@@ -2176,12 +2176,12 @@ static int video_init(void)
 	}
 	eorx = fgx ^ bgx;
 
-	video_clear();
+	//video_clear();
 
 #ifdef CONFIG_VIDEO_LOGO
 	/* Plot the logo and get start point of console */
 	debug("Video: Drawing the logo ...\n");
-	video_console_address = video_logo();
+	video_console_address = video_logo();    // delete logo
 #else
 	video_console_address = video_fb_address;
 #endif

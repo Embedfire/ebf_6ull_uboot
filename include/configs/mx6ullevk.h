@@ -14,6 +14,13 @@
 #include "mx6_common.h"
 #include <asm/imx-common/gpio.h>
 
+#define CONFIG_ZERO_BOOTDELAY_CHECK  /* check for keypress on bootdelay==0 */
+#if 0
+#define CONFIG_AUTOBOOT_KEYED 1
+#define CONFIG_AUTOBOOT_PROMPT "Press enter to abort autoboot in %d seconds"
+#define CONFIG_AUTOBOOT_DELAY_STR "linux"
+#define CONFIG_AUTOBOOT_STOP_STR "\x0d"
+#endif
 /* uncomment for PLUGIN mode support */
 /* #define CONFIG_USE_PLUGIN */
 
@@ -114,6 +121,7 @@
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	CONFIG_MFG_ENV_SETTINGS \
 	"panel=TFT50AB\0" \
+	"splashimage=0x82000000\0" \
 	"fdt_addr=0x83000000\0" \
 	"fdt_high=0xffffffff\0"	  \
 	"console=ttymxc0\0" \
@@ -133,6 +141,9 @@
 	"console=ttymxc0\0" \
 	"fdt_high=0xffffffff\0" \
 	"initrd_high=0xffffffff\0" \
+	"logo=logo.bmp\0" \
+	"splashimage=0x82000000\0" \
+	"splashpos=m,m\0" \
 	"fdt_file=undefined\0" \
 	"fdt_addr=0x83000000\0" \
 	"boot_fdt=try\0" \
@@ -200,8 +211,11 @@
 				"if test $fdt_file = undefined; then " \
 					"echo WARNING: Could not determine dtb to use; fi; " \
 			"fi;\0" \
+		"logo_display="\
+			"fatload mmc ${mmcdev}:${mmcpart} ${splashimage} ${logo}" \
 
 #define CONFIG_BOOTCOMMAND \
+	   "run logo_display;" \
 	   "run findfdt;" \
 	   "mmc dev ${mmcdev};" \
 	   "mmc dev ${mmcdev}; if mmc rescan; then " \
@@ -348,11 +362,11 @@
 #define CONFIG_IMX_THERMAL
 
 #ifndef CONFIG_SPL_BUILD
-#define CONFIG_VIDEO
+/*#define CONFIG_VIDEO*/
 #ifdef CONFIG_VIDEO
 #define CONFIG_CFB_CONSOLE
 #define CONFIG_VIDEO_MXS
-#define CONFIG_VIDEO_LOGO
+/*#define CONFIG_VIDEO_LOGO*/
 #define CONFIG_VIDEO_SW_CURSOR
 #define CONFIG_VGA_AS_SINGLE_DEVICE
 #define CONFIG_SYS_CONSOLE_IS_IN_ENV
